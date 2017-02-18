@@ -75,10 +75,10 @@ function mathPlayer(x,y,r) {
         }
         else {
             background('#D50000');
-            this.playerHealth = this.playerHealth - this.mainNumber;
+            this.playerHealth = this.playerHealth + this.mainNumber;
             this.score -= this.mainNumber;
             Winner.innerText = "Incorrect: " + this.leftNumber + " " + this.operator + " " + this.rightNumber + " does not equal " + this.mainNumber;
-            if (playerHealth >= 200) {
+            if (this.playerHealth >= 200) {
                 var text = Winner.innerText;
                 text = "You lose!";
                 Winner.innerText = text;
