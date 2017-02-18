@@ -58,19 +58,19 @@ function mathPlayer(x,y,r) {
         }
         if (total == this.mainNumber) {
             background('#00E676');
-            Winner.innerText = "Correct";
-            this.score += this.textMain;
-            this.playerHealth = this.playerHealth - this.textMain;
+            Winner.innerText = "Correct: " + this.leftNumber + " " + this.operator + " " + this.rightNumber + " equals " + this.mainNumber;
+            this.score += this.mainNumber;
+            this.playerHealth = this.playerHealth - this.mainNumber;
             var text = Winner.innerText;
             text = text + " " + this.score;
             Winner.innerText = text;
-            this.textMain = floor(random(1, 19))
+            this.mainNumber = floor(random(1, 19))
             // display correct answer
             // refresh player number
             // increase points
         } else {
             background('#D50000');
-            Winner.innerText = "Incorrect";
+            Winner.innerText = "Incorrect: " + this.leftNumber + " " + this.operator + " " + this.rightNumber + " does not equal " + this.mainNumber;
             this.score -= this.mainNumber;
             var text = Winner.innerText;
             text = text + " " + this.score;
