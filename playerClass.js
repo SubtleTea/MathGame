@@ -8,7 +8,7 @@ function mathPlayer(x,y,r) {
     this.leftNumber = " ";
     this.rightNumber = " ";
     this.operator = " ";
-    this.playerHealth = 100;
+    this.playerHealth = 5;
 
     this.update = function() {
         var newvel = createVector(mouseX - width / 2, mouseY - height / 2);
@@ -58,26 +58,40 @@ function mathPlayer(x,y,r) {
         }
         if (total == this.mainNumber) {
             background('#00E676');
+            if (playerHealth <= 0) {
+                Winner.innerText = "Correct: " + this.leftNumber + " " + this.operator + " " + this.rightNumber + " equals " + this.mainNumber;
+                this.score += this.mainNumber;
+                this.playerHealth = this.playerHealth - this.mainNumber;
+                var text = Winner.innerText;
+                text = "You win!";
+                Winner.innerText = text;
+                this.mainNumber = floor(random(1, 19))    
+            }
             Winner.innerText = "Correct: " + this.leftNumber + " " + this.operator + " " + this.rightNumber + " equals " + this.mainNumber;
             this.score += this.mainNumber;
             this.playerHealth = this.playerHealth - this.mainNumber;
             var text = Winner.innerText;
-            text = text + " " + this.score;
+            text = "Score: " + text + " " + this.score;
             Winner.innerText = text;
             this.mainNumber = floor(random(1, 19))
-            // display correct answer
-            // refresh player number
-            // increase points
         } else {
             background('#D50000');
-            Winner.innerText = "Incorrect: " + this.leftNumber + " " + this.operator + " " + this.rightNumber + " does not equal " + this.mainNumber;
-            this.score -= this.mainNumber;
-            var text = Winner.innerText;
-            text = text + " " + this.score;
-            Winner.innerText = text;
-            this.playerHealth = this.playerHealth + this.mainNumber;
-            // display wrong answer
-            // decrease points
+            if (playerHealth >= 200) {
+                Winner.innerText = "Incorrect: " + this.leftNumber + " " + this.operator + " " + this.rightNumber + " does not equal " + this.mainNumber;
+                this.score -= this.mainNumber;
+                var text = Winner.innerText;
+                text = "You lose!";
+                Winner.innerText = text;
+                this.playerHealth = this.playerHealth + this.mainNumber;
+            }
+            else {Winner.innerText = "Incorrect: " + this.leftNumber + " " + this.operator + " " + this.rightNumber + " does not equal " + this.mainNumber;
+                this.score -= this.mainNumber;
+                var text = Winner.innerText;
+                text = "Score" + text + " " + this.score;
+                Winner.innerText = text;
+                this.playerHealth = this.playerHealth + this.mainNumber;
+            }
+
         }
         this.leftNumber = " ";
         this.rightNumber = " ";
