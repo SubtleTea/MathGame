@@ -85,7 +85,7 @@ function Blob(x, y, r, player) {
         }
         if (total == this.textMain) {
             background('#00E676');
-            Winner.innerText = "Correct";
+            Winner.innerText = "Correct: " + this.textFirst + " " + this.textOp + " " + this.textSecond + " equals " + this.textMain;
             this.score += this.textMain;
             this.playerHealth = this.playerHealth - this.textMain;
             var text = Winner.innerText;
@@ -97,7 +97,7 @@ function Blob(x, y, r, player) {
             // increase points
         } else {
             background('#D50000');
-            Winner.innerText = "Incorrect";
+            Winner.innerText = "Incorrect: " + this.textFirst + " " + this.textOp + " " + this.textSecond + " does not equal " + "this.textMain;
             this.score -= this.textMain;
             var text = Winner.innerText;
             text = text + " " + this.score;
