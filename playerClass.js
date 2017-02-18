@@ -66,7 +66,7 @@ function mathPlayer(x,y,r) {
                 var text = Winner.innerText;
                 text = "You win!";
                 Winner.innerText = text;
-                // generate new game + display score
+                this.restart();
             }
             else {
                 var text = Winner.innerText;
@@ -78,15 +78,16 @@ function mathPlayer(x,y,r) {
             this.playerHealth = this.playerHealth + this.mainNumber;
             this.score -= this.mainNumber;
             Winner.innerText = "Incorrect: " + this.leftNumber + " " + this.operator + " " + this.rightNumber + " does not equal " + this.mainNumber;
-            if (this.playerHealth >= 200) {
+            if (this.playerHealth >= 15) {
                 var text = Winner.innerText;
                 text = "You lose!";
                 Winner.innerText = text;
-                // generate new game + score
+                this.restart();
             }
             else {
                 var text = Winner.innerText;
                 text = "Score" + text + " " + this.score;            }
+
 
         }
         this.leftNumber = " ";
@@ -94,4 +95,50 @@ function mathPlayer(x,y,r) {
         this.operator = " ";
     }
 
+
+
+
+
+
+
+this.restart = function() {
+
+  Winner.innerText += " Final score: " + this.score;
+  noLoop();
+  setTimeout(function(){  start(); }, 3000);
+
+}
+}
+start = function() {
+  loop();
+  Winner.innerText = "Score";
+   createCanvas(1280, 720);
+   playerMath = new mathPlayer(0, 0, radius * 1.5);
+   var i = 0;
+   var x = random(-width, width);
+   var y = random(-height, height);
+   blobs[i] = new Blob(x, y, radius);
+
+   i += 1;
+   while (i != 400) {
+       x = random(-width, width);
+       y = random(-height, height);
+
+       for (var j = 0; j < i; j++) {
+           var posX = blobs[j].pos.x;
+           var posY = blobs[j].pos.y;
+           var dis = dist(posX, posY, x, y);
+           if (dis <= radius * 2) {
+               overLap = true;
+               break;
+           } else {
+               overLap = false;
+           }
+       }
+       if (!overLap) {
+           blobs[i] = new Blob(x, y, radius);
+           i++;
+       }
+
+   }
 }

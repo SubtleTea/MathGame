@@ -6,41 +6,41 @@ var radius = 16;
 var overLap = true;
 
 function setup() {
+  createCanvas(1280, 720);
+  playerMath = new mathPlayer(0, 0, radius * 1.5);
+  var i = 0;
+  var x = random(-width, width);
+  var y = random(-height, height);
+  blobs[i] = new Blob(x, y, radius);
 
-    createCanvas(1280, 720);
-    playerMath = new mathPlayer(0,0,radius*1.5);
-    var i = 0;
-    var x = random(-width, width);
-    var y = random(-height, height);
-    blobs[i] = new Blob(x, y, radius);
+  i += 1;
+  while (i != 400) {
+      x = random(-width, width);
+      y = random(-height, height);
 
-    i += 1;
-    while (i != 400) {
-        x = random(-width  , width);
-        y = random(-height, height);
+      for (var j = 0; j < i; j++) {
+          var posX = blobs[j].pos.x;
+          var posY = blobs[j].pos.y;
+          var dis = dist(posX, posY, x, y);
+          if (dis <= radius * 2) {
+              overLap = true;
+              break;
+          } else {
+              overLap = false;
+          }
+      }
+      if (!overLap) {
+          blobs[i] = new Blob(x, y, radius);
+          i++;
+      }
 
-        for (var j = 0; j < i; j++) {
-            var posX = blobs[j].pos.x;
-            var posY = blobs[j].pos.y;
-            var dis = dist(posX, posY, x, y);
-            if ( dis <= radius*2) {
-                overLap = true;
-                break;
-            } else {
-                overLap = false;
-            }
-        }
-        if (!overLap) {
-            blobs[i] = new Blob(x, y, radius);
-            i++;
-        }
+  }
 
-    }
 }
 
 function draw() {
-    background(200);
 
+    background(200, 120, 123);
     translate(width / 2, height / 2);
     var newzoom = 40 / playerMath.r;
     zoom = lerp(zoom, newzoom, .5);
@@ -55,28 +55,28 @@ function draw() {
         }
     }
 
-    if(playerMath.pos.x < -1.3*width) {
+    if (playerMath.pos.x < -1.3 * width) {
 
-      playerMath.pos.x = 1660;
-      translate(-playerMath.pos.x, -playerMath.pos.y);
-    }else if(playerMath.pos.y < -1.3*height){
-      playerMath.pos.y = 900;
-      translate(-playerMath.pos.x, -playerMath.pos.y);
-
-    }
-    if(playerMath.pos.x > 1.3*width) {
-
-      playerMath.pos.x = -1660;
-      translate(-playerMath.pos.x, -playerMath.pos.y);
-    }else if(playerMath.pos.y > 1.3*height){
-
-      playerMath.pos.y = -900;
-      translate(-playerMath.pos.x, -playerMath.pos.y);
-
+        playerMath.pos.x = 1660;
+        translate(-playerMath.pos.x, -playerMath.pos.y);
+    } else if (playerMath.pos.y < -1.3 * height) {
+        playerMath.pos.y = 900;
+        translate(-playerMath.pos.x, -playerMath.pos.y);
 
     }
-    playerMath.showPlayer();
+    if (playerMath.pos.x > 1.3 * width) {
+
+        playerMath.pos.x = -1660;
+        translate(-playerMath.pos.x, -playerMath.pos.y);
+    } else if (playerMath.pos.y > 1.3 * height) {
+
+        playerMath.pos.y = -900;
+        translate(-playerMath.pos.x, -playerMath.pos.y);
+
+
+    }
     playerMath.update();
+    playerMath.showPlayer();
 
 
 }

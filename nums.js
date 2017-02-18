@@ -1,5 +1,7 @@
 function Blob(x, y, r) {
-
+    this.color1 = random(0,256);
+    this.color2 = random(0,256);
+    this.color3 = random(0,256);
     this.score = 0;
     this.pos = createVector(x, y);
     this.r = r;
@@ -35,10 +37,12 @@ function Blob(x, y, r) {
 
 
     this.show = function() {
+      //fill(this.color1,this.color2,this.color3);
 
-        ellipse(this.pos.x, this.pos.y, this.r * 2, this.r * 2);
+      noStroke()
+      ellipse(this.pos.x, this.pos.y, this.r * 2, this.r * 2);
+      text(this.textMain, this.pos.x - 3, this.pos.y + 4);
 
-        text(this.textMain, this.pos.x - 3, this.pos.y + 4);
 
 
     }
