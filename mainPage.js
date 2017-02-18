@@ -1,4 +1,4 @@
-var blob;
+var playerMath;
 
 var blobs = [];
 var zoom = 1;
@@ -8,12 +8,12 @@ var overLap = true;
 function setup() {
 
     createCanvas(1280, 720);
-    blob = new Blob(0, 0, radius*1.5,true);
+    playerMath = new mathPlayer(0,0,radius*1.5);
     var i = 0;
     var x = random(-width, width);
     var y = random(-height, height);
-    blobs[i] = new Blob(x, y, radius,false);
-    
+    blobs[i] = new Blob(x, y, radius);
+
     i += 1;
     while (i != 400) {
         x = random(-width  , width);
@@ -31,7 +31,7 @@ function setup() {
             }
         }
         if (!overLap) {
-            blobs[i] = new Blob(x, y, radius,false);
+            blobs[i] = new Blob(x, y, radius);
             i++;
         }
 
@@ -42,40 +42,41 @@ function draw() {
     background(200);
 
     translate(width / 2, height / 2);
-    var newzoom = 40 / blob.r;
+    var newzoom = 40 / playerMath.r;
     zoom = lerp(zoom, newzoom, .5);
     scale(zoom);
-    translate(-blob.pos.x, -blob.pos.y);
+    translate(-playerMath.pos.x, -playerMath.pos.y);
 
     for (var i = blobs.length - 1; i >= 0; i--) {
         blobs[i].show();
-        if (blob.eats(blobs[i])) {
+        if (playerMath.eats(blobs[i])) {
             blobs.splice(i, 1);
 
         }
     }
 
-    if(blob.pos.x < -1.3*width) {
+    if(playerMath.pos.x < -1.3*width) {
 
-      blob.pos.x = 1660;
-      translate(-blob.pos.x, -blob.pos.y);
-    }else if(blob.pos.y < -1.3*height){
-      blob.pos.y = 900;
-      translate(-blob.pos.x, -blob.pos.y);
-
-    }
-    if(blob.pos.x > 1.3*width) {
-
-      blob.pos.x = -1660;
-      translate(-blob.pos.x, -blob.pos.y);
-    }else if(blob.pos.y > 1.3*height){
-
-      blob.pos.y = -900;
-      translate(-blob.pos.x, -blob.pos.y);
-
+      playerMath.pos.x = 1660;
+      translate(-playerMath.pos.x, -playerMath.pos.y);
+    }else if(playerMath.pos.y < -1.3*height){
+      playerMath.pos.y = 900;
+      translate(-playerMath.pos.x, -playerMath.pos.y);
 
     }
-    blob.showPlayer();
-    blob.update();
+    if(playerMath.pos.x > 1.3*width) {
+
+      playerMath.pos.x = -1660;
+      translate(-playerMath.pos.x, -playerMath.pos.y);
+    }else if(playerMath.pos.y > 1.3*height){
+
+      playerMath.pos.y = -900;
+      translate(-playerMath.pos.x, -playerMath.pos.y);
+
+
+    }
+    playerMath.showPlayer();
+    playerMath.update();
+
 
 }
